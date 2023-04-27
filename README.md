@@ -10,15 +10,15 @@ ngiq-frontend-template-desktop
   ├── .husky                        # 存放 git hooks
   │   ├── commit-msg                # git commit 时触发
   │   ├── pre-commit                # git commit 前触发
-  ├── config                         # vite 构建配置
+  ├── config                        # vite 构建配置
   │   ├── rollup.build.config.ts    # rollup 配置文件
   │   ├── vite.base.config.ts       # vite 基础配置文件
   │   ├── vite.dev.config.ts        # vite 开发环境配置文件
   │   └── vite.prod.config.ts       # vite 生产环境配置文件
   ├── env                           # vite 项目环境变量
-  ├── public                        # 公共静态资源文件目录
+  ├── public                        # 公共静态资源文件目录(专用于主进程和预加载脚本使用)
   │   └── icon.png
-  ├── scripts                       # 项目构建脚本
+  ├── scripts                       # 存储项目CI、npm hooks、上传等脚本
   ├── .editorconfig                 # 编辑器风格配置文件
   ├── .eslintignore                 # eslint 忽略校验配置文件
   ├── .eslintrc                     # eslint 校验配置文件
@@ -28,7 +28,6 @@ ngiq-frontend-template-desktop
   ├── .stylelintignore              # stylelint 忽略配置文件
   ├── CHANGELOG.md                  # 项目 changelog（可配置相关插件，根据 git commit 自动生成）
   ├── commitlint.config.cjs         # git 提交规范配置文件
-  ├── index.html
   ├── jest.config.ts                # jest 配置文件
   ├── lint-staged.config.cjs        # git lint-staged 规则配置文件
   ├── package.json
@@ -37,42 +36,45 @@ ngiq-frontend-template-desktop
   ├── stylelint.config.cjs          # stylelint 代码格式化配置文件
   ├── tsconfig.base.json            # tsconfig 基础配置文件
   ├── tsconfig.json
-  ├── tsconfig.node.json
+  ├── tsconfig.web.json             # 专用渲染进程配置文件
+  ├── tsconfig.node.json            # 专用主进程/预加载脚本配置文件    
   └── src
-     ├── assets                     # 项目静态资源文件目录
-     │   ├── fonts              
-     │   ├── images
-     │   └── svgs
-     ├── components                 # 项目通用的组件
-     │   ├── error-boundary
-     │   ├── inspector
-     │   └── ...
-     ├── constants                  # 存放项目中的全局变量、常量
-     ├── hooks                      # 自定义 hooks
-     ├── pages                      # 页面目录
-     │   ├── 404
-     │   ├── home
-     │   ├── login
-     │   └── ...
-     ├── routes                     # 路由表，支持配置式路由
-     ├── services                   # 后端接口相关   
-     │   ├── api
-     │   └── ...
-     ├── store                      # 全局 store 目录
-     │   ├── models                 # 数据 model 目录（global model + 按页面划分的 model）
-     │   └── index.ts         
-     ├── styles                     # 样式目录：存放全局样式、主题色、mixins
-     ├── types                      # 存放 TS 类型声明文件
-     ├── utils                      # 工具函数
-     │   ├── index.ts
-     │   ├── generate-id.ts
-     │   ├── generate-random-string.ts
-     │   └── variable-type-detection.ts
-     ├── vite-env.d.ts              # vite 环境变量声明文件
-     ├── main.tsx                   # 项目入口文件
-     ├── App.tsx                    # 项目根容器组件
-     ├── App.less
-     └── index.less
+     ├── main                       # 主进程相关代码              
+     │   ├── plugins                # 自定义插件（如：更新检测、自动更新等）              
+     │   └── ...                    
+     ├── preload                    # 预加载脚本相关代码                            
+     └── renderer                   # 渲染进程相关代码                
+         ├── assets                 # 项目静态资源文件目录
+         │   ├── fonts              
+         │   ├── images
+         │   └── svgs
+         ├── components             # 项目通用的组件
+         │   ├── error-boundary
+         │   ├── inspector
+         │   └── ...
+         ├── constants              # 存放项目中的全局变量、常量
+         ├── hooks                  # 自定义 hooks
+         ├── pages                  # 页面目录
+         │   ├── 404
+         │   ├── home
+         │   ├── login
+         │   └── ...
+         ├── routes                 # 路由表，支持配置式路由
+         ├── services               # 后端接口相关   
+         │   ├── api
+         │   └── ...
+         ├── store                  # 全局 store 目录
+         │   ├── models             # 数据 model 目录（global model + 按页面划分的 model）
+         │   └── index.ts         
+         ├── styles                 # 样式目录：存放全局样式、主题色、mixins
+         ├── types                  # 存放 TS 类型声明文件
+         ├── utils                  # 工具函数
+         ├── vite-env.d.ts          # vite 环境变量声明文件
+         ├── main.tsx               # 项目入口文件
+         ├── App.tsx                # 项目根容器组件
+         ├── index.html             # html 页面模板
+         ├── App.less
+         └── index.less
 ```
 
 ## 项目环境要求

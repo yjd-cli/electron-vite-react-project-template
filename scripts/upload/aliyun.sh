@@ -11,6 +11,8 @@ export app_version=$(cat package.json | jq -r '.version')
 
 export show_version=$(cat package.json | jq -r '.show_version')
 
+export app_name=$(cat package.json | jq -r '.name')
+
 cat build/install-linux-desktop-tmp.sh | \
 sed "s/\$SNPlaceholder/${stack_name}/g" | \
 sed "s/\$DMPlaceholder/${stack_name}.neuralgalaxy.cn/g" | \
@@ -28,6 +30,6 @@ cat <<EOF | tee build/version.json
 }
 EOF
 
-version_bucket_dir="oss://ng-software/${stack_name}/product_name/${app_version}"
+version_bucket_dir="oss://ng-software/${stack_name}/${app_name}/${app_version}"
 echo "upload build to: ${version_bucket_dir}"
 aliyun oss sync build $version_bucket_dir -f -u

@@ -31,7 +31,7 @@ echo -e "langFileList = $langFileList\n"
 if [ -z "$tsFileList" ]; then
   echo -e "check ts passed, changed files is empty\n"
 else
-  # npx tsc -p tsconfig.json --noEmit
+  npx tsc -p tsconfig.json --noEmit
   if [[ "$?" == 0 ]]; then
     echo -e "check ts passed\n"
   else
@@ -61,7 +61,7 @@ else
   fi
 
   # check jest
-  # npx jest $jtsfiles --findRelatedTests --env=jsdom --config jest.config.json --coverage --silent
+  npx jest $jtsfiles --findRelatedTests --env=jsdom --config jest.config.ts --coverage --silent  --passWithNoTests
   if [[ "$?" == 0 ]]; then
     echo -e "check Jest passed\n"
   else
@@ -73,7 +73,7 @@ fi
 if [ ! "$langFileList" ]; then
   echo -e "check i8n passed, changed files is empty\n"
 else
-  # npm run check-messages
+  npm run check-messages
   if [[ "$?" == 0 ]]; then
     echo -e "check i8n passed\n"
   else

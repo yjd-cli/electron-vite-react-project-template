@@ -1,0 +1,1 @@
+import{R as e,L as t}from"./vendor-7ade5383.js";import{V as n}from"../index-2cad7176.js";const a=()=>e.createElement("div",null,e.createElement("h2",null,"UserContainer"),e.createElement(n,null),e.createElement("div",null,e.createElement("div",null,e.createElement(t,{to:"/home"},"To Home"))));export{a as default};

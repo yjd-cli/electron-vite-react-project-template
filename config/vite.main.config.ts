@@ -4,6 +4,7 @@ import { externalizeDepsPlugin } from 'electron-vite'
 
 export default function getMainConfig(): UserConfig {
     return {
+        publicDir:'public',
         build: {
             rollupOptions: {
               input: {

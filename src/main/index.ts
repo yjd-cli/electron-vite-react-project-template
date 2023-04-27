@@ -2,7 +2,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 
-import icon from '../../resources/icon.png?asset';
+import icon from '../../public/icon.png?asset';
 
 function createWindow(): void {
   // Create the browser window.

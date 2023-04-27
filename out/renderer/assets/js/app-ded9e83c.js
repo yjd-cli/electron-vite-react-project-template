@@ -1,1 +1,0 @@
-import{k as t,r as l,R as o,O as s}from"./vendor-b66a35af.js";console.log({BASE_URL:"./",MODE:"production",DEV:!1,PROD:!0,SSR:!1});function c(){const e=t();return console.log("location: ",e),l.useEffect(()=>(console.log("App 挂载"),()=>{console.log("App 卸载")}),[]),o.createElement("div",{className:"App"},o.createElement(s,null))}export{c as default};

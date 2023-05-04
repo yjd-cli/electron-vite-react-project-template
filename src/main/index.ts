@@ -3,6 +3,11 @@ import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 
 import icon from '../../public/icon.png?asset';
+import { registerMainProcessIPCListeners } from './ipc/listeners';
+import { ipcTestOneSender } from './ipc/senders';
+
+// 注册【主进程】IPC 监听事件
+registerMainProcessIPCListeners();
 
 function createWindow(): void {
   // Create the browser window.
@@ -34,6 +39,10 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
+
+  setTimeout(() => {
+    ipcTestOneSender();
+  }, 2000);
 }
 
 // This method will be called when Electron has finished

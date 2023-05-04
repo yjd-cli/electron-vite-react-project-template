@@ -15,7 +15,7 @@ export default function getRendererBaseConfig(configEnv: ConfigEnv): UserConfig 
     // 项目根目录（index.html 文件所在的位置）
     // 【在 vite 中】：默认值 => process.cwd() => 当前项目路径，和当前 vite.config.ts 文件所在位置无关
     // root:  path.resolve('public'),
-    // 【在 electron-vite 中】：默认值 => src/renderer 
+    // 【在 electron-vite 中】：默认值 => src/renderer
     // root:  'src/renderer',
 
     // 开发或生产环境服务的公共基础路径
@@ -35,10 +35,8 @@ export default function getRendererBaseConfig(configEnv: ConfigEnv): UserConfig 
     resolve: {
       // alias 别名配置不仅在 JavaScript 的 import 语句中生效，在 CSS 代码的 @import 和 url导入语句中也同样生效
       alias: {
-        '@src': path.resolve('src'),
+        '@common': path.resolve('src/common'),
         '@renderer': path.resolve('src/renderer'),
-        '@main': path.resolve('src/main'),
-        '@preload': path.resolve('src/preload'),
       },
       // 默认： ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']
       // 这里不添加 '.css'、'.less'、'.json'的原因：在一个模块中同时引入了很多模块时，还是需要快速区分下哪些是样式模块

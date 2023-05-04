@@ -40,7 +40,7 @@ module.exports = {
     // 二方 npm 依赖
     '^@ngiq/(.+)',
     // 路径别名
-    '^@src/(.+)',
+    '^@(src|main|renderer|common)/(.+)',
     // 本地依赖—组件
     '^\.(.+)\.(jsx|tsx)$',
     // 本地依赖—脚本

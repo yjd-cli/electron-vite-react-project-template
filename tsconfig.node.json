@@ -1,6 +1,11 @@
 {
-  "extends":  "./tsconfig.base.json",
-  "include": ["config/*","src/main/*", "src/preload/*"],
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "config/**/*",
+    "src/common/**/*",
+    "src/main/**/*",
+    "src/preload/**/*"
+  ],
   "compilerOptions": {
     "composite": true,
     "paths": {
@@ -9,8 +14,13 @@
       ],
       "@preload/*": [
         "src/preload/*"
+      ],
+      "@common/*": [
+        "src/common/*"
       ]
     },
-    "types": ["electron-vite/node"]
+    "types": [
+      "electron-vite/node"
+    ],
   }
 }

@@ -196,10 +196,6 @@ ngiq-frontend-template-desktop
 - 环境变量使用说明
   - https://cn.vitejs.dev/guide/env-and-mode.html#env-variables
   - https://cn.vitejs.dev/config/#using-environment-variables-in-config
-- `index.html` 与项目根目录 => `index.html` 必须放在项目根目录下
-  - https://cn.vitejs.dev/guide/#index-html-and-project-root
-  - https://cn.vitejs.dev/guide/build.html#multi-page-app
-- package.json 中设置了 `"type": "module"`，表示当前项目使用 `ES Modules（ESM）`模块系统，即在 `ESM` 中，需要使用 `import` 和 `export` 关键字来导入/导出模块，不能再用 `require/module.exports`。
 - `git commit`前，可以通过执行 `npm run commit`，选择对应的提交类型
 
 ## 未来计划

@@ -2,8 +2,8 @@
 // 事件函数命名规范：on + xxx
 import { ipcRenderer } from 'electron-better-ipc';
 
-import { IPCChannel } from '../../common/ipc/ipc-channels';
+import { IPCMainToRendererChannel } from '../../main/ipc/ipc-channels';
 
 export const onIPCTestOne = (callback) => {
-  ipcRenderer.answerMain(IPCChannel.IPCTestOne, callback);
+  ipcRenderer.answerMain(IPCMainToRendererChannel.IPCTestOne, callback);
 };

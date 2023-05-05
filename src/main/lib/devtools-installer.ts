@@ -3,7 +3,7 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from 'electron-devtools-assembler';
 
-import { logger } from '../../common/logger';
+import { logger } from '../plugins/logger';
 
 // 使用 electron-devtools-assembler 代替 electron-devtools-installer
 // https://github.com/facebook/react/issues/25843

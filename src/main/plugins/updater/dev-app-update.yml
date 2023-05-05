@@ -1,0 +1,18 @@
+# 此文件用于本地开发环境测试【更新检测&下载】功能
+
+# GitHub Releases, Amazon S3, DigitalOcean Spaces, Keygen and generic HTTP(s) server
+provider: generic
+
+channel: 'latest'
+
+useMultipleRangeRequest: false
+
+# url 可以为云存储地址，如：阿里云、AWS 等
+# url 也可以为 HTTP(s) 服务接口
+url: https://example.com/auto-updates
+
+#updaterCacheDirName: electron-vite-updater
+
+requestHeaders:
+  a-b-c-d: 666
+

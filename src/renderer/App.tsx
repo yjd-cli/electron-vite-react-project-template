@@ -18,12 +18,17 @@ function App() {
   useEffect(() => {
     const desktopAPI = window.desktopAPI;
     console.log('desktopAPI: ', desktopAPI);
+
     desktopAPI.ipc.invokeIPCTestTwo('888').then((res) => {
       console.log('main answer info', res);
     });
+
+    desktopAPI.ipc.invokeCheckForUpdate();
+
     desktopAPI.ipc.onIPCTestOne((data) => {
       console.log(data);
     });
+
     desktopAPI.logger.warn('Some problem appears');
   }, []);
 

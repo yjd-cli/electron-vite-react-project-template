@@ -5,7 +5,7 @@ import { join } from 'path';
 import icon from '../../public/icon.png?asset';
 import { registerMainProcessIPCListeners } from './ipc/listeners';
 import { ipcTestOneSender } from './ipc/senders';
-import { installDevToolExtensions } from './lib/devtool-extensions';
+import { installDevToolExtensions } from './lib/devtools-installer';
 
 // 注册【主进程】IPC 监听事件
 registerMainProcessIPCListeners();

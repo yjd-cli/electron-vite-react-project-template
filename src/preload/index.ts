@@ -1,7 +1,7 @@
 // import { electronAPI } from '@electron-toolkit/preload';
 import { contextBridge } from 'electron';
 
-import { logger } from '../common/logger';
+import { logger } from '../main/plugins/logger';
 import * as listeners from './ipc/listeners';
 import * as senders from './ipc/senders';
 

@@ -5,6 +5,7 @@ import { join } from 'path';
 import icon from '../../public/icon.png?asset';
 import { registerMainProcessIPCListeners } from './ipc/listeners';
 import { ipcTestOneSender } from './ipc/senders';
+import { installDevToolExtensions } from './lib/devtool-extensions';
 
 // 注册【主进程】IPC 监听事件
 registerMainProcessIPCListeners();
@@ -48,7 +49,7 @@ function createWindow(): void {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron');
 
@@ -58,6 +59,10 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window);
   });
+
+  if (process.env.NODE_ENV !== 'production') {
+    await installDevToolExtensions();
+  }
 
   createWindow();
 

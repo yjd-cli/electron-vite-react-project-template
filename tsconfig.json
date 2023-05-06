@@ -4,7 +4,7 @@
 // 各模块会使用对应的 tsconfig.xxx.json 文件进行 解析&编译
 // 所以，理论上，当前文件不需要编写任何 TS 编译配置
 {
-//  "extends": "./tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     // 这里配置路径别名，只是为了让编辑器能正常 识别&解析 路径别名
     "paths": {

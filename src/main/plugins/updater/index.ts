@@ -31,6 +31,9 @@ import { logger } from '../logger';
 //   RestartAppToInstall = 'RestartToInstall',
 // }
 
+// https://www.electron.build/auto-update#electron-updaterautoupdater-appupdater
+// https://www.electron.build/configuration/publish#publishers
+
 class Updater {
   private autoUpdater: AppUpdater;
   private defaultProviderCfg: PublishConfiguration | AllPublishOptions;

@@ -1,8 +1,8 @@
 // 当前文件存放【主进程】IPC 监听事件函数
 // 事件函数命名规范：xxx + Listener
+import { IPCRendererToMainChannel } from '@preload/ipc/ipc-channels';
 import { ipcMain } from 'electron-better-ipc';
 
-import { IPCRendererToMainChannel } from '../../preload/ipc/ipc-channels';
 import { updater } from '../plugins/updater';
 
 export const ipcTestTwoListener = (data) => {

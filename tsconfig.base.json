@@ -228,5 +228,7 @@
   // "exclude": [],
 
   // https://www.typescriptlang.org/docs/handbook/project-references.html
-  // "references": [{ "path": "./tsconfig.node.json" }]
+  // references 字段只是用来声明 项目/模块 之间的依赖关系，它不会自动继承 被引用项目/模块 的 tsconfig.json 配置信息
+  // 编译当前项目前，先去编译子项目/模块的 tsconfig.xxx.json 文件
+  // "references": [{ "path": "./tsconfig.xxx.json" }]
 }

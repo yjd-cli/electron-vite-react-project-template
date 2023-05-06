@@ -1,3 +1,28 @@
+// 因为当前项目拆分成了两个模块（node、web）
+//   node => tsconfig.node.json
+//   web =>  tsconfig.web.json
+// 各模块会使用对应的 tsconfig.xxx.json 文件进行 解析&编译
+// 所以，理论上，当前文件不需要编写任何 TS 编译配置
 {
+//  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    // 这里配置路径别名，只是为了让编辑器能正常 识别&解析 路径别名
+    "paths": {
+      "@renderer/*": [
+        "src/renderer/*"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@main/*": [
+        "src/main/*"
+      ],
+      "@preload/*": [
+        "src/preload/*"
+      ]
+    },
+  },
+  // references 字段只是用来声明 项目/模块 之间的依赖关系，它不会自动继承 被引用项目/模块 的 tsconfig.json 配置信息
+  // 编译当前项目前，先去编译子项目/模块的 tsconfig.xxx.json 文件
   "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }],
 }

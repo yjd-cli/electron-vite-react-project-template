@@ -128,8 +128,6 @@
      // TS 项目：可以使用 eslint-import-resolver-typescript 插件解决
      "typescript": {
         "project": [
-          "./tsconfig.json",
-          "./tsconfig.base.json",
           "./tsconfig.web.json",
           "./tsconfig.node.json",
         ]

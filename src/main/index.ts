@@ -1,6 +1,8 @@
-import { electronApp, optimizer, is } from '@electron-toolkit/utils';
+import { optimizer, is } from '@electron-toolkit/utils';
 import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
+
+import '@common/utils/aop';
 
 import icon from '../../public/icon.png?asset';
 import { registerMainProcessIPCListeners } from './ipc/listeners';
@@ -15,6 +17,7 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1320,
     height: 768,
+    // 先隐藏
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -25,6 +28,7 @@ function createWindow(): void {
   });
 
   mainWindow.on('ready-to-show', () => {
+    // 主进程加载完毕后再展示窗口，减少白屏时间（）
     mainWindow.show();
   });
 
@@ -40,19 +44,16 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
-
-  setTimeout(() => {
-    ipcTestOneSender();
-  }, 2000);
 }
+
+// setTimeout(() => {
+//   ipcTestOneSender();
+// }, 6000);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
-  // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron');
-
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
@@ -82,5 +83,29 @@ app.on('window-all-closed', () => {
   }
 });
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+// In this file you can include the rest of your app"s specific main process code.
+// You can also put them in separate files and require them here.
+class MainProcessController {
+  // constructor() {}
+
+  init = () => {
+    console.log('MainProcessController init');
+  };
+
+  checkSingleInstanceLock = () => {
+    // 单应用程序实例锁：https://www.electronjs.org/zh/docs/latest/api/app#apprequestsingleinstancelockadditionaldata
+    const lock = app.requestSingleInstanceLock();
+    if (!lock) {
+      app.quit();
+      process.exit(0);
+    }
+  };
+
+  // registerMainProcessListeners = () => {};
+}
+
+const mainProcessController = new MainProcessController();
+
+mainProcessController.init._before(() => {
+  mainProcessController.checkSingleInstanceLock();
+})();

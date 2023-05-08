@@ -130,6 +130,7 @@ export class BrowserWindowController {
 
       // 两种场景：
       // 场景一：如果 pageUrl 为外部链接，则通过默认浏览器打开访问，而不是直接在当前应用程序中新开一个窗口访问
+      // https://www.electronjs.org/docs/latest/tutorial/security#15-do-not-use-shellopenexternal-with-untrusted-content
       // if(xxx){
       //   shell.openExternal(pageUrl);
       //   return { action: 'deny' };

@@ -23,7 +23,9 @@ function App() {
       console.log('main answer info', res);
     });
 
-    desktopAPI.ipc.invokeCheckForUpdate();
+    // setInterval(()=>{
+    //   desktopAPI.ipc.invokeCheckForUpdate();
+    // },3000);
 
     desktopAPI.ipc.onIPCTestOne((data) => {
       console.log(data);

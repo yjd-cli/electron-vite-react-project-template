@@ -17,8 +17,20 @@ export default function getMainConfig(): UserConfig {
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, '../src/main/index.ts'),
+          // index:  path.resolve('src/main/index.ts'),
+          // index: path.resolve(__dirname, './src/main/index.ts'),
         },
+        watch:{
+          // include: [path.resolve(__dirname, '../src/main')]
+          // include: ['src/main/**/*']
+          include: [`${path.resolve(__dirname, '../src/main')}/**/*`]
+        }
       },
+      watch:{
+        // include: [path.resolve(__dirname, '../src/main')]
+        // include: ['src/main/**/*']
+        include: [`${path.resolve(__dirname, '../src/main')}/**/*`]
+      }
     },
     plugins: [externalizeDepsPlugin()],
   };

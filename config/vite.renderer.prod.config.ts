@@ -24,7 +24,7 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
       // 【在 vite 中】：默认值 => dist
       // 此配置与 rollupOptions.output.dir 配置重复，两者选其一即可
       // outDir: 'dist',
-      // 【在 electron-vite 中】：默认值 => out/renderer 
+      // 【在 electron-vite 中】：默认值 => out/renderer
       // outDir: 'out/renderer',
 
       // 指定生成静态资源的存放路径（相对于 build.outDir，即 dist/assets）
@@ -79,7 +79,7 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
     plugins: [
       // https://cn.vitejs.dev/guide/build.html#chunking-strategy
       // splitVendorChunkPlugin(),
-      
+
       // 开发环境和生产环境都需要按需加载组件库样式（会自动加载当前组件需要的样式），如果开发环境不设置的话，就不会自动引入组件样式，导致页面样式错乱
       // https://github.com/umijs/babel-plugin-import
       // 按需加载 ES Module

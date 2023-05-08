@@ -9,3 +9,6 @@ const mainProcessController = new MainProcessController();
 mainProcessController.init._before(() => {
   mainProcessController.checkSingleInstanceLock();
 })();
+console.log(8888888);
+console.log(888888);
+console.log(888888);

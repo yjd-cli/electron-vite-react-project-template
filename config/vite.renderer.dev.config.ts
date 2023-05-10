@@ -79,13 +79,13 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
       // https://cn.vitejs.dev/config/dep-optimization-options.html#optimizedeps-include
       // 默认情况下，不在 node_modules 中的、通过 npm link 链接的包不会被预构建
       // 使用此选项可强制预构建通过 npm link 链接的包
-      include: [],
+      // include: [],
 
       // https://cn.vitejs.dev/config/dep-optimization-options.html#optimizedeps-exclude
       // 在预构建中强制排除的依赖项，这样该依赖项就能触发热更新（调试依赖项源代码时有用）
       // 注意：如果一个依赖项只输出了 CommonJS 格式的产物，没有输出 ESM 格式的产物，那么就不应该被排除
       // exclude: ["react"],
-      exclude: [],
+      // exclude: [],
 
       // https://cn.vitejs.dev/config/dep-optimization-options.html#optimizedeps-disabled
       // 注意：目前依赖预构建仅适用于开发模式，会使用 esbuild 将依赖项（如：CJS 模块）转换为 ES 模块。在生产构建中，将使用 @rollup/plugin-commonjs 代替 esbuild 的能力。

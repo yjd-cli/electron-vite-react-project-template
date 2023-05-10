@@ -32,6 +32,10 @@ export default function getMainConfig(): UserConfig {
         include: [`${path.resolve(__dirname, '../src/main')}/**/*`]
       }
     },
-    plugins: [externalizeDepsPlugin()],
+    plugins: [
+      externalizeDepsPlugin({
+        // include: ['electron-devtools-assembler'],
+      }),
+    ],
   };
 }

@@ -1,7 +1,7 @@
 {
-  "name": "product_name",
+  "name": "electron-vite-react-project-template",
   "version": "1.0.0",
-  "description": "ngiq-frontend-template-desktop",
+  "description": "electron-vite-react-project-template",
   "license": "ISC",
   "main": "./out/main/index.js",
   "scripts": {
@@ -12,9 +12,9 @@
     "dev": "electron-vite --config config/electron.vite.config.ts",
     "dev-w": "electron-vite -w --config config/electron.vite.config.ts",
     "build": "electron-vite build --config config/electron.vite.config.ts",
-    "build:win": "npm run build && electron-builder --win --config",
-    "build:mac": "electron-vite build && electron-builder --mac --config",
-    "build:linux": "electron-vite build && electron-builder --linux --config",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux",
     "preinstall": "[ -f ./scripts/npm-hooks/preinstall.js ] && node ./scripts/npm-hooks/preinstall.js || true",
     "postinstall": "electron-builder install-app-deps",
     "lint": "eslint --ext .ts,.tsx,.js src",

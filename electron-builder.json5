@@ -1,17 +1,244 @@
 /**
- * @see https://www.electron.build/configuration/configuration
+ * https://www.electron.build/configuration/configuration
+ * https://www.yuque.com/niweixiaoshihaomei/ay7c0v/zpgncm
  */
 {
-  "appId": "com.companyName.app",
-  "productName": "product_name",
-  "copyright": "Copyright © 2023",
-  "asar": true,
+  /**************************** 基本信息 ****************************/
+  /**************************** 基本信息 ****************************/
+  /**************************** 基本信息 ****************************/
+  // 应用ID => 默认值 "com.electron.${name}"
+  "appId": "com.electron.${name}",
+  // 应用名称 => 如果没有声明的话，会先去查找 package.json 顶层的 productName 属性，找不到的话，最终会默认使用 package.json 的 name 属性值
+  "productName": "ElectronReact",
+  // 版权信息
+  "copyright": "Copyright © 2023 ${author}",
+  // ...
+
+  /**************************** 输入/输出 ****************************/
+  /**************************** 输入/输出 ****************************/
+  /**************************** 输入/输出 ****************************/
+  // https://www.electron.build/configuration/contents#files
+  // https://www.yuque.com/niweixiaoshihaomei/ay7c0v/zpgncm#i1795
+  // 指定 appDir 目录下的哪些文件会被打包进 app.asar 里
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  // https://www.electron.build/configuration/contents#extraresources
+  // https://www.yuque.com/niweixiaoshihaomei/ay7c0v/zpgncm#k0hIM
+  // 拷贝文件/目录 至 resources 目录（Contents/Resources for MacOS, resources for Linux and Windows）下。app.asar 文件也在 resources 目录下，所以 拷贝的文件/目录 默认和 app.asar 文件 平级。
+  //  "extraResources": [
+  //    "./assets/**",
+  //    {
+  //      "from": "./dist/version.json",
+  //      "to": "version.json"
+  //    }
+  //  ],
+  // 输出目录 => https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/configuration.ts#LL288C29-L288C29
+  // appDir 的计算逻辑 => https://www.yuque.com/niweixiaoshihaomei/ay7c0v/zpgncm#WQxPY
   "directories": {
-    "output": "release/${version}"
+    // The application directory (containing the application package.json), defaults to `app`, `www` or working directory.
+    // 指定打包目标基准目录：指定打包哪个目录下的文件内容(如：构建输出的 main/preload/renderer 这些 chunk)
+    // 默认值 => [`app` | `www` | working directory]，常用于"双 package.json 架构"
+    // "app": "release/app",
+
+    // 指定打包构建时需要用到的静态资源目录，比如：图标文件。
+    // 默认值 build
+    // 注意：
+    // 1、buildResources 字段只是用来告知 electron-builder 去哪个目录下查找静态资源文件。
+    // 2、buildResources 默认是不会被打包进软件包里的，需要开发者自行解决（可以用 extraResources 字段，如："extraResources": ["./assets/**"]）
+    "buildResources": "build",
+    // 指定打包构建完成后的应用程序输出目录
+    // 默认值 dist
+    "output": "release/${os}"
   },
+  // ...
+
+  /**************************** asar 相关配置 ****************************/
+  /**************************** asar 相关配置 ****************************/
+  /**************************** asar 相关配置 ****************************/
+  // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/PlatformSpecificBuildOptions.ts#L63
+  // Whether to package the application’s source code into an archive
+  // Node modules, that must be unpacked, will be detected automatically, you don’t need to explicitly set asarUnpack - please file an issue if this doesn’t work.
+  // 默认值 true
+  "asar": true,
+  // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/PlatformSpecificBuildOptions.ts#L68
+  // 指定哪些文件不会被打包进 app.asar 文件中，同时会生成一个 app.asar.unpacked 目录，用于存放这些文件
+  //  "asarUnpack": [
+  //    "xxx1",
+  //    "xxx2"
+  //  ],
+  // ...
+
+  /**************************** macOS 通用构建配置（适用于 dmg、mas、pkg 等）  ****************************/
+  /**************************** macOS 通用构建配置（适用于 dmg、mas、pkg 等）  ****************************/
+  /**************************** macOS 通用构建配置（适用于 dmg、mas、pkg 等）  ****************************/
+  // https://www.electron.build/configuration/mac
+  "mac": {
+    "target": [
+      "dmg",
+      "zip"
+    ],
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/PlatformSpecificBuildOptions.ts#L40
+    // 默认值 ${productName}-${version}.${ext}
+    "artifactName": "${name}-${buildNumber}-${version}.${ext}",
+    // https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8
+    "category": "public.app-category.medical",
+    // 应用图标 => https://www.electron.build/icons#macos
+    // 默认值 build/icon.icns，图标查找优先级 icon.icns => icon.png => default Electron icon
+    // Icon size should be at least 512x512.
+    "icon": "build/icon.png",
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L117
+    // Whether to sign app for development or for distribution
+    // 默认值 distribution
+    "type": "distribution",
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L158
+    // Whether your app has to be signed with hardened runtime
+    // 默认值 true
+    "hardenedRuntime": true,
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L164
+    // Whether to let @electron/osx-sign validate the signing or not
+    // 默认值 false
+    "gatekeeperAssess": false,
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L127
+    // Paths of any extra binaries that need to be signed
+    // "binaries": [
+    //  "dist/keytar.node"
+    // ],
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L175
+    // Regex or an array of regex’s that signal skipping signing a file.
+    // 跳过签名
+    // signIgnore: []
+  },
+  // ...
+
+  /**************************** macOS 之 dmg 构建配置 ****************************/
+  /**************************** macOS 之 dmg 构建配置 ****************************/
+  /**************************** macOS 之 dmg 构建配置 ****************************/
+  // https://www.electron.build/configuration/dmg
+  "dmg": {
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L215
+    // The path to background image (default: build/background.tiff or build/background.png if exists).
+    // "background": "",
+    // Defaults to #ffffff (white) if no background image.
+    "backgroundColor": "#ffffff",
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/macOptions.ts#L246
+    // 应用程序安装弹窗标题
+    // 默认值 ${productName} ${version}
+    "title": "${productName} ${version}",
+  },
+  // ...
+
+  /**************************** windows 通用构建配置（适用于 win、nsis、nsisWeb 等）  ****************************/
+  /**************************** windows 通用构建配置（适用于 win、nsis、nsisWeb 等）  ****************************/
+  /**************************** windows 通用构建配置（适用于 win、nsis、nsisWeb 等）  ****************************/
+  // https://www.electron.build/configuration/win
+  "win": {
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/winOptions.ts#L13
+    "target": "nsis",
+    // 应用图标 => https://www.electron.build/icons#windows-nsis
+    // 默认值 build/icon.ico，图标查找优先级 icon.ico => icon.png => default Electron icon
+    // Icon size should be at least 256x256.
+    "icon": "build/icon.png",
+    "artifactName": "${name}-${buildNumber}-${version}.${ext}",
+    // 注册商标
+    "legalTrademarks": "Trademarks Of ${author}",
+    // 签名算法
+    "signingHashAlgorithms": [
+      "sha256"
+    ],
+    // The URL of the time stamp server.
+    "timeStampServer": "http://timestamp.comodoca.com/",
+  },
+  // ...
+
+  /**************************** windows 之 nsis 构建配置 ****************************/
+  /**************************** windows 之 nsis 构建配置 ****************************/
+  /**************************** windows 之 nsis 构建配置 ****************************/
+  // https://www.electron.build/configuration/nsis
+  "nsis": {
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/targets/nsis/nsisOptions.ts#L153
+    // Defaults to ${productName} Setup ${version}.${ext}.
+    // "artifactName": "${productName} Setup ${version}.${ext}",
+    // Whether to create one-click installer or assisted.
+    // 默认值 true
+    "oneClick": true,
+    // 是否把 warning 当做 error 处理
+    // 默认值 true
+    "warningsAsErrors": false,
+    // Whether to create submenu for start menu shortcut and program files directory
+    "menuCategory": true,
+    // Whether to delete app data on uninstall.
+    // 默认值 false
+    "deleteAppDataOnUninstall": true,
+    // Whether to create desktop shortcut. Set to always if to recreate also on reinstall (even if removed by user).
+    // 默认值 true
+    "createDesktopShortcut": "always",
+    // Whether to create start menu shortcut.
+    // 默认值 true
+    "createStartMenuShortcut": false,
+    // The path to installer icon, relative to the build resources or to the project directory.
+    // 默认值 build/installerIcon.ico，图标查找优先级 installerIcon.ico => default Electron icon
+    "installerIcon": "build/installer.ico",
+    // The path to uninstaller icon, relative to the build resources or to the project directory.
+    // 默认值 build/uninstallerIcon.ico，图标查找优先级 uninstallerIcon.ico => default Electron icon
+    "uninstallerIcon": "build/uninstaller.ico",
+    // The path to NSIS include script to customize installer.
+    "include": "build/installer.nsh",
+  },
+  // ...
+
+  /**************************** linux 通用构建配置（适用于 AppImage、flatpak、snap 等）  ****************************/
+  /**************************** linux 通用构建配置（适用于 AppImage、flatpak、snap 等）  ****************************/
+  /**************************** linux 通用构建配置（适用于 AppImage、flatpak、snap 等）  ****************************/
+  "linux": {
+    // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/options/linuxOptions.ts#LL12C37-L12C37
+    "target": "AppImage",
+    // https://specifications.freedesktop.org/menu-spec/latest/apa.html#main-category-registry
+    "category": "Application",
+    "artifactName": "${name}-${buildNumber}-${version}.${ext}",
+    // 应用图标 => https://www.electron.build/icons#linux
+    // 默认值 build/icon.icns，图标查找优先级 icon.icns => icon.png => default Electron icon
+    // The filename must contain the size (e.g. 256x256.png) of the icon). Recommended sizes: 16, 32, 48, 64, 128, 256 (or just 512).
+    "icon": "build/icon.png"
+  },
+  // ...
+
+  /**************************** linux 之 AppImage 构建配置 ****************************/
+  /**************************** linux 之 AppImage 构建配置 ****************************/
+  /**************************** linux 之 AppImage 构建配置 ****************************/
+  // ...
+
+  /**************************** 其他配置 ****************************/
+  /**************************** 其他配置 ****************************/
+  /**************************** 其他配置 ****************************/
+  // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/configuration.ts#L130
+  // Whether to rebuild native dependencies before starting to package the app.
+  // 默认值 true
+  // 注意：如果你已经在 package.json/scripts 里配置了依赖重建，那么这个字段可以设置为 false
+  "npmRebuild": false,
+  // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/configuration.ts#L254
+  // Whether to build using Electron Build Service if target not supported on current OS.
+  // 默认值 true
+  "remoteBuild": false,
+  // ...
+
+  /**************************** 公证/签名 ****************************/
+  /**************************** 公证/签名 ****************************/
+  /**************************** 公证/签名 ****************************/
+  // electron-builder-notarize-pkg 和 electron-builder-notarize 都是用于 Electron 应用程序在 macOS 上进行代码签名、公证和打包的插件，它们的主要区别在于打包的文件格式不同。
+  // electron-builder-notarize 插件会将 Electron 应用程序打包成 .dmg 或 .zip 格式的安装包
+  "afterSign": "electron-builder-notarize",
+  // electron-builder-notarize-pkg 插件则会将 Electron 应用程序打包成 .pkg 格式的安装包。
+  // "afterAllArtifactBuild": "electron-builder-notarize-pkg",
+  // ...
+
+  /**************************** 发布 ****************************/
+  /**************************** 发布 ****************************/
+  /**************************** 发布 ****************************/
   "publish": {
     "provider": "generic",
     "channel": "latest",
-    "url": "https://github.com/electron-vite/electron-vite-react/releases/download/v0.9.9/"
+    "url": "https://github.com/electron-vite-react-project-template/releases/xxx/"
   }
 }

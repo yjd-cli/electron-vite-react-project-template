@@ -1,9 +1,10 @@
 // 注意：此文件应该只存放所有环境（开发环境、生产环境、测试环境等）【通用】的配置项。
-// 像 plugins 这种特殊的配置项，因为每个插件的使用场景（开发环境、生产环境）不一致、插件执行的先后顺序要求也不一样，所以当前文件不考虑设置 plugins 配置项，各个环境对应的配置文件自行设置
+import react from '@vitejs/plugin-react';
 import * as path from 'path';
-import postcssPresetEnv from 'postcss-preset-env';
 import postcssNest from 'postcss-nesting';
+import postcssPresetEnv from 'postcss-preset-env';
 import { ConfigEnv, UserConfig } from 'vite';
+import usePluginImport from 'vite-plugin-importer';
 
 // 【vite官方配置】https://vitejs.dev/config/
 // 【electron-vite配置】https://cn-evite.netlify.app/config/#%E5%86%85%E7%BD%AE%E9%85%8D%E7%BD%AE
@@ -58,7 +59,7 @@ export default function getRendererBaseConfig(configEnv: ConfigEnv): UserConfig 
         plugins: [
           // https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-nesting
           postcssNest(),
-          postcssPresetEnv()
+          postcssPresetEnv(),
         ],
       },
 
@@ -93,5 +94,29 @@ export default function getRendererBaseConfig(configEnv: ConfigEnv): UserConfig 
     //【在 vite 中】：默认值 => VITE_
     //【在 electron-vite 中】：默认值 => RENDERER_VITE_
     envPrefix: 'PUBLIC_',
+
+    plugins: [
+      // https://github.com/vitejs/vite-plugin-react-swc
+      // reactSWC(),
+      // 如果想要在项目中使用 react-dev-inspector 插件的话，就无法使用 vite-plugin-react-swc 编译项目，因为 react-dev-inspector 插件底层依赖 babel 编译 + 修改 AST
+      // 所以开发环境下，暂时放弃使用 SWC 编译项目
+      react(),
+
+      // 开发环境和生产环境都需要按需加载组件库样式（会自动加载当前组件需要的样式），如果开发环境不设置的话，就不会自动引入组件样式，导致页面样式错乱
+      // https://github.com/umijs/babel-plugin-import
+      // 按需加载 ES Module
+      // 以下有两种支持按需加载的 vite 插件
+      // https://github.com/ajuner/vite-plugin-importer
+      usePluginImport({
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: 'css',
+      }),
+      // https://github.com/vbenjs/vite-plugin-style-import/blob/main/README.zh_CN.md
+      // 支持自定义
+      // createStyleImportPlugin({
+      //   resolves: [AntdResolve()],
+      // }),
+    ],
   };
 }

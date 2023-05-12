@@ -31,7 +31,7 @@ function App() {
       console.log(data);
     });
 
-    desktopAPI.logger.warn('Some problem appears');
+    // desktopAPI.logger.warn('Some problem appears');
   }, []);
 
   return (

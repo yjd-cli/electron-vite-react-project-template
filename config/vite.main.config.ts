@@ -14,23 +14,16 @@ export default function getMainConfig(): UserConfig {
       extensions: ['.js', '.ts', '.jsx', '.tsx'],
     },
     build: {
+      minify: 'esbuild',
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, '../src/main/index.ts'),
-          // index:  path.resolve('src/main/index.ts'),
-          // index: path.resolve(__dirname, './src/main/index.ts'),
         },
-        watch:{
-          // include: [path.resolve(__dirname, '../src/main')]
-          // include: ['src/main/**/*']
-          include: [`${path.resolve(__dirname, '../src/main')}/**/*`]
+        output: {
+          // 指定输出路径（相对于 项目根目录)
+          dir: 'dist/main',
         }
       },
-      watch:{
-        // include: [path.resolve(__dirname, '../src/main')]
-        // include: ['src/main/**/*']
-        include: [`${path.resolve(__dirname, '../src/main')}/**/*`]
-      }
     },
     plugins: [
       externalizeDepsPlugin({

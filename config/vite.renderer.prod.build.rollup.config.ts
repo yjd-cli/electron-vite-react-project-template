@@ -9,7 +9,7 @@ const buildConfig: BuildOptions['rollupOptions'] = {
 
   output: {
     // 指定输出路径（相对于 项目根目录)
-    dir: 'out/renderer',
+    dir: 'dist/renderer',
 
     // 指定生成的 bundle 的格式：amd、cjs、es、iife、umd、system
     // 默认值 => 'es'

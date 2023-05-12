@@ -1,23 +1,15 @@
-import react from '@vitejs/plugin-react'
-import { ConfigEnv, UserConfig } from 'vite';
-import usePluginImport from 'vite-plugin-importer';
+import react from '@vitejs/plugin-react';
+import { ConfigEnv, mergeConfig, UserConfig } from 'vite';
 
 // 注意：这里必须指明要引入的具体文件，如：react-dev-inspector/plugins/vite/index.js，不能简写(react-dev-inspector/plugins/vite)，否则会编译失败
 import { inspectorServer } from 'react-dev-inspector/plugins/vite/index.js';
 
 import getRendererBaseConfig from './vite.renderer.base.config';
 
-
 export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
   const baseConfig: UserConfig = getRendererBaseConfig(configEnv);
-  // let inspectorServer;
-  // const res = await import('react-dev-inspector/plugins/vite');
-  // console.log('res: ', res);
-  // inspectorServer = res.inspectorServer;
-  
-  return {
-    ...baseConfig,
 
+  return mergeConfig(baseConfig, {
     // https://cn.vitejs.dev/config/shared-options.html#loglevel
     // 调整控制台输出的级别
     // 默认值 => 'info'
@@ -80,13 +72,11 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
       // 默认情况下，不在 node_modules 中的、通过 npm link 链接的包不会被预构建
       // 使用此选项可强制预构建通过 npm link 链接的包
       // include: [],
-
       // https://cn.vitejs.dev/config/dep-optimization-options.html#optimizedeps-exclude
       // 在预构建中强制排除的依赖项，这样该依赖项就能触发热更新（调试依赖项源代码时有用）
       // 注意：如果一个依赖项只输出了 CommonJS 格式的产物，没有输出 ESM 格式的产物，那么就不应该被排除
       // exclude: ["react"],
       // exclude: [],
-
       // https://cn.vitejs.dev/config/dep-optimization-options.html#optimizedeps-disabled
       // 注意：目前依赖预构建仅适用于开发模式，会使用 esbuild 将依赖项（如：CJS 模块）转换为 ES 模块。在生产构建中，将使用 @rollup/plugin-commonjs 代替 esbuild 的能力。
       // 禁用依赖优化
@@ -98,31 +88,8 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
 
     // https://cn.vitejs.dev/guide/api-plugin.html
     plugins: [
-      // https://github.com/vitejs/vite-plugin-react-swc
-      // reactSWC(),
-      // 如果想要在项目中使用 react-dev-inspector 插件的话，就无法使用 vite-plugin-react-swc 编译项目，因为 react-dev-inspector 插件底层依赖 babel 编译 + 修改 AST
-      // 所以开发环境下，暂时放弃使用 SWC 编译项目
-      react(),
-
-      // 开发环境和生产环境都需要按需加载组件库样式（会自动加载当前组件需要的样式），如果开发环境不设置的话，就不会自动引入组件样式，导致页面样式错乱
-      // https://github.com/umijs/babel-plugin-import
-      // 按需加载 ES Module
-      // 以下有两种支持按需加载的 vite 插件
-      // https://github.com/ajuner/vite-plugin-importer
-      usePluginImport({
-        libraryName: 'antd',
-        libraryDirectory: 'es',
-        style: 'css',
-      }),
-      // https://github.com/vbenjs/vite-plugin-style-import/blob/main/README.zh_CN.md
-      // 支持自定义
-      // createStyleImportPlugin({
-      //   resolves: [AntdResolve()],
-      // }),
-
       // https://github.com/zthxxx/react-dev-inspector#usage-with-vite2
       inspectorServer(),
     ],
-  };
+  });
 }
-

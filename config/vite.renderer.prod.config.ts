@@ -1,7 +1,8 @@
 // import * as path from 'path';
-import { defineConfig, ConfigEnv, splitVendorChunkPlugin, UserConfig } from 'vite';
-import usePluginImport from 'vite-plugin-importer';
-import Inspect from 'vite-plugin-inspect'
+import react from '@vitejs/plugin-react';
+import { defineConfig, ConfigEnv, splitVendorChunkPlugin, UserConfig, mergeConfig } from 'vite';
+import Inspect from 'vite-plugin-inspect';
+
 // import legacy from "@vitejs/plugin-legacy";
 import viteBaseConfig from './vite.renderer.base.config';
 import rollupBuildConfig from './vite.renderer.prod.build.rollup.config';
@@ -11,9 +12,7 @@ import rollupBuildConfig from './vite.renderer.prod.build.rollup.config';
 export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
   const baseConfig = viteBaseConfig(configEnv);
 
-  return {
-    ...baseConfig,
-
+  return mergeConfig(baseConfig, {
     build: {
       // https://cn.vitejs.dev/config/build-options.html#build-target
       // 设置最终构建的浏览器兼容目标
@@ -74,22 +73,10 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
       },
     },
 
-
     // https://cn.vitejs.dev/guide/api-plugin.html
     plugins: [
       // https://cn.vitejs.dev/guide/build.html#chunking-strategy
       // splitVendorChunkPlugin(),
-
-      // 开发环境和生产环境都需要按需加载组件库样式（会自动加载当前组件需要的样式），如果开发环境不设置的话，就不会自动引入组件样式，导致页面样式错乱
-      // https://github.com/umijs/babel-plugin-import
-      // 按需加载 ES Module
-      // 以下有两种支持按需加载的 vite 插件
-      // https://github.com/ajuner/vite-plugin-importer
-      usePluginImport({
-        libraryName: 'antd',
-        libraryDirectory: 'es',
-        style: 'css',
-      }),
 
       // https://github.com/vitejs/vite/tree/main/packages/plugin-legacy
       // Vite 默认支持的浏览器版本列表：https://cn.vitejs.dev/guide/build.html#browser-compatibility
@@ -108,5 +95,5 @@ export default function getRendererConfig(configEnv: ConfigEnv): UserConfig {
       //   outputDir: '.vite-inspect'
       // })
     ],
-  };
+  });
 }

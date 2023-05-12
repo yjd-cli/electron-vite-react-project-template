@@ -6,6 +6,8 @@ import { system, SystemEnum } from '@main/lib/env';
 
 import icon from '../../../public/icon.png?asset';
 
+// import icon from '../icon.png?asset';
+
 export class BrowserWindowController {
   browserWindow: BrowserWindow;
   winWidth: number;

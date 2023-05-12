@@ -214,10 +214,10 @@
   // 指定需要编译的文件/目录
   // https://www.typescriptlang.org/zh/tsconfig#include
   // "include": [
-    // 1、需要编译的文件/目录路径 相对于 当前 tsconfig.json 文件所在位置 去设置
-    // 2、If a glob pattern doesn’t include a file extension, then only files with supported extensions are included (e.g. .ts, .tsx, and .d.ts by default, with .js and .jsx if allowJs is set to true).
-    // 常用的通配符 ：【** => 匹配任意层级的目录】【* => 匹配任意文件】
-    // "src", // 只写一个目录名等价于 "./src/**/*"
+  // 1、需要编译的文件/目录路径 相对于 当前 tsconfig.json 文件所在位置 去设置
+  // 2、If a glob pattern doesn’t include a file extension, then only files with supported extensions are included (e.g. .ts, .tsx, and .d.ts by default, with .js and .jsx if allowJs is set to true).
+  // 常用的通配符 ：【** => 匹配任意层级的目录】【* => 匹配任意文件】
+  // "src", // 只写一个目录名等价于 "./src/**/*"
   // ],
 
   // 指定【上述 include 设置的目录中】需要排除的文件或目录

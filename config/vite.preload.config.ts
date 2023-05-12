@@ -14,9 +14,14 @@ export default function getPreloadConfig(): UserConfig {
       extensions: ['.js', '.ts', '.jsx', '.tsx'],
     },
     build: {
+      minify: 'esbuild',
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, '../src/preload/index.ts'),
+        },
+        output: {
+          // 指定输出路径（相对于 项目根目录)
+          dir: 'dist/preload',
         },
       },
     },

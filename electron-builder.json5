@@ -22,7 +22,8 @@
   // 指定 appDir 目录下的哪些文件会被打包进 app.asar 里
   "files": [
     "dist",
-    "package.json"
+    "package.json",
+    // "!node_modules"
   ],
   // https://www.electron.build/configuration/contents#extraresources
   // https://www.yuque.com/niweixiaoshihaomei/ay7c0v/zpgncm#k0hIM
@@ -236,6 +237,7 @@
   /**************************** 发布 ****************************/
   /**************************** 发布 ****************************/
   /**************************** 发布 ****************************/
+  // 如果不设置这个配置，打包时默认不会输出 latest-*.yml 文件
   "publish": {
     "provider": "generic",
     "channel": "latest",

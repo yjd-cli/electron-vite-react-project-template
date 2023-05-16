@@ -6,10 +6,14 @@
   /**************************** 基本信息 ****************************/
   /**************************** 基本信息 ****************************/
   /**************************** 基本信息 ****************************/
-  // 应用ID => 默认值 "com.electron.${name}"
-  "appId": "com.electron.${name}",
+  // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/appInfo.ts#L107
+  // https://github.com/electron-userland/electron-builder/blob/v23.6.0/packages/app-builder-lib/src/electron/ElectronFramework.ts#L118
+  // https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070
+  // The bundle ID string must be a uniform type identifier (UTI) that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters
+  // 应用ID => 默认值 'com.electron.${package.json 中的 name 值}'
+  "appId": "com.neuralgalaxy.frontend.template.desktop",
   // 应用名称 => 如果没有声明的话，会先去查找 package.json 顶层的 productName 属性，找不到的话，最终会默认使用 package.json 的 name 属性值
-  "productName": "ElectronReact",
+  // "productName": "ElectronReact",
   // 版权信息
   "copyright": "Copyright © 2023 ${author}",
   // ...
